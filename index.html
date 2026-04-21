@@ -73,9 +73,9 @@ html,body{height:100%;font-family:'Inter',-apple-system,sans-serif;background:va
 
 /* STAT GRID */
 .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
-.stat-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 18px;box-shadow:var(--shadow-sm)}
-.stat-label{font-size:11px;font-weight:500;color:var(--text-light);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
-.stat-value{font-size:22px;font-weight:600;color:var(--text);letter-spacing:-.5px;line-height:1}
+.stat-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 18px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column}
+.stat-label{font-size:11px;font-weight:500;color:var(--text-light);text-transform:uppercase;letter-spacing:.5px;margin-bottom:0;min-height:32px;display:flex;align-items:flex-start}
+.stat-value{font-size:22px;font-weight:600;color:var(--text);letter-spacing:-.5px;line-height:1;margin-top:8px}
 .stat-delta{font-size:12px;margin-top:4px}
 .du{color:var(--green)}.dd{color:var(--red)}
 .stat-card.ac{border-color:#fca5a5;background:#fff5f5}
@@ -93,7 +93,7 @@ tbody td{padding:11px 14px;font-size:13.5px;color:var(--text);vertical-align:mid
 
 /* PILLS */
 .pill{display:inline-flex;align-items:center;gap:3px;font-size:11.5px;font-weight:500;border-radius:4px;padding:2px 7px;white-space:nowrap}
-.pg{color:var(--green);background:var(--green-bg)}
+.pill-g{color:var(--green);background:var(--green-bg)}
 .pb{color:var(--blue);background:var(--blue-light)}
 .pr{color:var(--red);background:var(--red-bg)}
 .pa{color:var(--amber);background:var(--amber-bg)}
@@ -163,7 +163,11 @@ hr.dv{border:none;border-top:1px solid var(--border-light);margin:18px 0}
 /* CHART */
 .chart-wrap{display:flex;align-items:flex-end;gap:4px;height:56px}
 .bar{flex:1;background:var(--blue-light);border-radius:3px 3px 0 0;min-height:4px;transition:background .1s}
-.bar:hover,.bar.hi{background:var(--blue)}
+.bar:hover{background:var(--blue)}
+.bar.hi{background:var(--blue)}
+
+/* TFOOT */
+tfoot tr td{border-top:2px solid var(--border)}
 
 /* PROGRESS */
 .pbw{background:var(--bg);border-radius:4px;height:5px;overflow:hidden}
@@ -184,7 +188,7 @@ hr.dv{border:none;border-top:1px solid var(--border-light);margin:18px 0}
 
 /* SCREEN 2 */
 .rh{text-align:center;padding:30px 28px 24px;border-bottom:1px solid var(--border-light)}
-.hi{width:48px;height:48px;background:var(--green-bg);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.hi{width:48px;height:48px;background:var(--bg);border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
 .ht{font-size:12px;font-weight:500;color:var(--text-muted);margin-bottom:4px}
 .ha{font-size:36px;font-weight:600;color:var(--text);letter-spacing:-1.5px;line-height:1;margin-bottom:6px}
 .bkd{border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
@@ -200,12 +204,12 @@ hr.dv{border:none;border-top:1px solid var(--border-light);margin:18px 0}
 
 /* SCREEN 3 */
 .sc{max-width:480px;margin:0 auto;text-align:center;padding-top:28px}
-.si{width:56px;height:56px;background:var(--green-bg);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+.si{width:56px;height:56px;background:var(--bg);border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
 .timeline{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:18px;text-align:left}
 .ts{display:flex;align-items:center;gap:11px;padding:11px 16px;border-bottom:1px solid var(--border-light)}
 .ts:last-child{border-bottom:none}
 .tsi{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.tsi.dn{background:var(--green-bg)}.tsi.ac{background:var(--blue-light)}
+.tsi.dn{background:var(--bg);border:1px solid var(--border)}.tsi.ac{background:var(--blue-light)}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
 .pulse{animation:pulse 2s ease-in-out infinite}
 
@@ -213,6 +217,9 @@ hr.dv{border:none;border-top:1px solid var(--border-light);margin:18px 0}
 .dp-ov{display:none;position:fixed;inset:0;background:rgba(10,37,64,.2);z-index:200;animation:fi .15s}
 .dp-ov.open{display:flex;align-items:flex-start;justify-content:flex-end}
 @keyframes fi{from{opacity:0}to{opacity:1}}
+@keyframes modal-in{from{opacity:0;transform:scale(.95) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes fieldIn{from{opacity:0;transform:translateX(6px)}to{opacity:1;transform:translateX(0)}}
 .dp{width:400px;height:100vh;background:#fff;border-left:1px solid var(--border);overflow-y:auto;animation:si2 .2s ease}
 @keyframes si2{from{transform:translateX(30px);opacity:0}to{transform:translateX(0);opacity:1}}
 .dp-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:#fff;z-index:1}
@@ -222,6 +229,7 @@ hr.dv{border:none;border-top:1px solid var(--border-light);margin:18px 0}
 .dp-body{padding:18px 20px}
 .dp-sec{margin-bottom:18px}
 .dp-sec-title{font-size:10.5px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text-light);margin-bottom:9px}
+.tsi-dn-bg{background:var(--bg);border:1px solid var(--border)}
 .dp-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border-light)}
 .dp-row:last-child{border-bottom:none}
 .dk{font-size:12.5px;color:var(--text-muted)}.dv{font-size:12.5px;font-weight:500;color:var(--text)}
@@ -248,6 +256,13 @@ hr.dv{border:none;border-top:1px solid var(--border-light);margin:18px 0}
 /* SECTION ROW */
 .secrow{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}
 .seclabel{font-size:10.5px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text-light)}
+
+/* FIELD ERRORS */
+.field-err{display:none;font-size:12px;color:var(--red);margin-top:5px}
+.field-err.show{display:block}
+.field.err input,.field.err select{border-color:var(--red);box-shadow:0 0 0 3px rgba(192,57,43,.1)}
+.field.err .ipw{border-color:var(--red);box-shadow:0 0 0 3px rgba(192,57,43,.1)}
+.card.err{border-color:#fca5a5}
 </style>
 </head>
 <body>
@@ -277,10 +292,7 @@ hr.dv{border:none;border-top:1px solid var(--border-light);margin:18px 0}
       <svg class="ni-icon" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="4" width="13" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M1.5 7h13M5 10.5h2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
       <span class="ni-label">Payouts</span>
     </div>
-    <div class="ni" id="ni-buyers" onclick="go('buyers')">
-      <svg class="ni-icon" viewBox="0 0 16 16" fill="none"><circle cx="6" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M1.5 13c0-2.49 2.02-4.5 4.5-4.5s4.5 2.01 4.5 4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M11 4l1 1 2-2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <span class="ni-label">Buyers</span>
-    </div>
+
     <div class="nav-sec">Finance</div>
     <div class="ni" id="ni-reports" onclick="go('reports')">
       <svg class="ni-icon" viewBox="0 0 16 16" fill="none"><path d="M2 12l3-4 3 2 3-5 3 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -316,13 +328,13 @@ hr.dv{border:none;border-top:1px solid var(--border-light);margin:18px 0}
   <div class="topbar tbv on" id="tb-overview"><div class="tb-left"><span class="tb-title">Overview</span></div><div class="tb-actions"><button class="btn-s" style="font-size:13px;padding:6px 12px">Export</button><button class="btn-p" onclick="go('upload')">+ New contract</button></div></div>
   <div class="topbar tbv" id="tb-contracts"><div class="tb-left"><span class="tb-title">Contracts</span><span class="tb-sep">/</span><span class="tb-crumb">All (20)</span></div><div class="tb-actions"><button class="btn-p" onclick="go('upload')">+ New contract</button></div></div>
   <div class="topbar tbv" id="tb-payouts"><div class="tb-left"><span class="tb-title">Payouts</span></div><div class="tb-actions"><button class="btn-s" style="font-size:13px;padding:6px 12px">Export CSV</button></div></div>
-  <div class="topbar tbv" id="tb-buyers"><div class="tb-left"><span class="tb-title">Buyers</span></div><div class="tb-actions"><span class="pill pa">⚠ 1 buyer in default</span></div></div>
+
   <div class="topbar tbv" id="tb-reports"><div class="tb-left"><span class="tb-title">Reports</span></div><div class="tb-actions"><button class="btn-s" style="font-size:13px;padding:6px 12px">Download PDF</button></div></div>
   <div class="topbar tbv" id="tb-underwriting"><div class="tb-left"><span class="tb-title">Underwriting</span><span class="tb-sep">/</span><span class="tb-crumb">1 action required</span></div><div class="tb-actions"><span class="pill pr">1 flagged</span></div></div>
   <div class="topbar tbv" id="tb-team"><div class="tb-left"><span class="tb-title">Team</span></div><div class="tb-actions"><button class="btn-p">Invite member</button></div></div>
   <div class="topbar tbv" id="tb-settings"><div class="tb-left"><span class="tb-title">Settings</span></div><div class="tb-actions"><button class="btn-p">Save changes</button></div></div>
   <div class="topbar tbv" id="tb-upload"><div class="tb-left"><span class="tb-title">New Contract</span><span class="tb-sep">/</span><span class="tb-crumb">Upload</span></div><div class="tb-actions"><button class="btn-s" style="font-size:13px;padding:6px 12px">Save draft</button></div></div>
-  <div class="topbar tbv" id="tb-screen2"><div class="tb-left"><span class="tb-title">Underwriting Result</span><span class="tb-sep">/</span><span class="tb-crumb">Acme Corp</span></div><div class="tb-actions"><span class="pill pg">● Approved</span></div></div>
+  <div class="topbar tbv" id="tb-screen2"><div class="tb-left"><span class="tb-title">Underwriting Result</span><span class="tb-sep">/</span><span class="tb-crumb">Acme Corp</span></div><div class="tb-actions"><span class="pill pill-g">● Approved</span></div></div>
   <div class="topbar tbv" id="tb-screen3"><div class="tb-left"><span class="tb-title">Contract Funded</span></div><div class="tb-actions"><button class="btn-p" onclick="go('upload')">+ New contract</button></div></div>
 
   <div class="content">
@@ -363,7 +375,7 @@ hr.dv{border:none;border-top:1px solid var(--border-light);margin:18px 0}
     <!-- CONTRACTS -->
     <div class="pg" id="pg-contracts">
       <p class="pg-title">Contracts</p>
-      <p class="pg-sub">20 funded contracts · Total portfolio value €140,000</p>
+      <p class="pg-sub">20 funded contracts · Total portfolio value €140,000 · 19 buyers in good standing · <span style="color:var(--red);font-weight:500">1 in default</span></p>
       <div class="tab-bar">
         <div class="tab on" onclick="filterC('all',this)">All (20)</div>
         <div class="tab" onclick="filterC('active',this)">Active (18)</div>
@@ -378,25 +390,19 @@ hr.dv{border:none;border-top:1px solid var(--border-light);margin:18px 0}
     <!-- PAYOUTS -->
     <div class="pg" id="pg-payouts">
       <p class="pg-title">Payouts</p>
-      <p class="pg-sub">Funds transferred to AIB — IBAN ••••3421</p>
-      <div class="stat-grid" style="grid-template-columns:1fr 1fr 1fr">
-        <div class="stat-card"><div class="stat-label">Total paid out</div><div class="stat-value">€134.4k</div><div class="stat-delta du">20 contracts</div></div>
-        <div class="stat-card"><div class="stat-label">Next payout</div><div class="stat-value">€9,840</div><div class="stat-delta" style="color:var(--text-muted)">Jun 1, 2025</div></div>
+      <p class="pg-sub">Per-contract disbursements to AIB — IBAN ••••3421</p>
+      <div class="stat-grid" style="grid-template-columns:1fr 1fr 1fr 1fr">
+        <div class="stat-card"><div class="stat-label">Total originated</div><div class="stat-value">€140,000</div><div class="stat-delta du">20 contracts</div></div>
+        <div class="stat-card"><div class="stat-label">Total fees (4%)</div><div class="stat-value">€5,600</div><div class="stat-delta" style="color:var(--text-muted)">Deducted at funding</div></div>
+        <div class="stat-card"><div class="stat-label">Paid to account</div><div class="stat-value">€134,400</div><div class="stat-delta du">↑ 20 contracts</div></div>
         <div class="stat-card ac"><div class="stat-label">At risk</div><div class="stat-value">€2,085</div><div class="stat-delta dd">Vortex default</div></div>
       </div>
       <div class="card" style="padding:0;overflow:hidden">
-        <div class="tw"><table><thead><tr><th>Date</th><th>Description</th><th>Contracts</th><th>Amount</th><th>Status</th></tr></thead><tbody id="po-tbody"></tbody></table></div>
+        <div class="tw"><table><thead><tr><th>Date funded</th><th>Contract</th><th>Contract value</th><th>Our fee (4%)</th><th>Paid to account</th><th>Status</th></tr></thead><tbody id="po-tbody"></tbody></table></div>
       </div>
     </div>
 
-    <!-- BUYERS -->
-    <div class="pg" id="pg-buyers">
-      <p class="pg-title">Buyers</p>
-      <p class="pg-sub">20 buyers · 19 in good standing · 1 in default</p>
-      <div class="card" style="padding:0;overflow:hidden">
-        <div class="tw"><table><thead><tr><th>Company</th><th>Contract value</th><th>Monthly</th><th>Paid to date</th><th>Progress</th><th>Status</th></tr></thead><tbody id="b-tbody"></tbody></table></div>
-      </div>
-    </div>
+
 
     <!-- REPORTS -->
     <div class="pg" id="pg-reports">
@@ -419,17 +425,20 @@ hr.dv{border:none;border-top:1px solid var(--border-light);margin:18px 0}
       </div>
       <div class="card">
         <div class="card-title">Month-by-month collections</div>
-        <div class="tw"><table><thead><tr><th>Month</th><th>Expected</th><th>Collected</th><th>Delta</th><th>Rate</th></tr></thead>
-        <tbody>
-          <tr><td>Oct 2024</td><td class="tmono">€10,500</td><td class="tmono">€10,500</td><td><span class="pill pg">+€0</span></td><td>100%</td></tr>
-          <tr><td>Nov 2024</td><td class="tmono">€10,500</td><td class="tmono">€10,500</td><td><span class="pill pg">+€0</span></td><td>100%</td></tr>
-          <tr><td>Dec 2024</td><td class="tmono">€10,500</td><td class="tmono">€10,500</td><td><span class="pill pg">+€0</span></td><td>100%</td></tr>
-          <tr><td>Jan 2025</td><td class="tmono">€10,500</td><td class="tmono">€10,500</td><td><span class="pill pg">+€0</span></td><td>100%</td></tr>
-          <tr><td>Feb 2025</td><td class="tmono">€10,500</td><td class="tmono">€10,500</td><td><span class="pill pg">+€0</span></td><td>100%</td></tr>
-          <tr><td>Mar 2025</td><td class="tmono">€10,500</td><td class="tmono">€10,500</td><td><span class="pill pg">+€0</span></td><td>100%</td></tr>
-          <tr><td>Apr 2025</td><td class="tmono">€10,500</td><td class="tmono">€10,500</td><td><span class="pill pg">+€0</span></td><td>100%</td></tr>
-          <tr style="background:#fff9f9"><td>May 2025</td><td class="tmono">€10,500</td><td class="tmono" style="color:var(--red)">€10,083</td><td><span class="pill pr">−€417</span></td><td style="color:var(--red);font-weight:500">96%</td></tr>
-        </tbody></table></div>
+        <div class="tw"><table>
+          <thead><tr><th>Month</th><th>Expected</th><th>Collected</th><th>Delta</th><th>Rate</th></tr></thead>
+          <tbody>
+            <tr><td>Oct 2024</td><td class="tmono">€10,500</td><td class="tmono">€10,500</td><td><span class="pill pill-g">+€0</span></td><td>100%</td></tr>
+            <tr><td>Nov 2024</td><td class="tmono">€10,500</td><td class="tmono">€10,500</td><td><span class="pill pill-g">+€0</span></td><td>100%</td></tr>
+            <tr><td>Dec 2024</td><td class="tmono">€10,500</td><td class="tmono">€10,500</td><td><span class="pill pill-g">+€0</span></td><td>100%</td></tr>
+            <tr><td>Jan 2025</td><td class="tmono">€10,500</td><td class="tmono">€10,500</td><td><span class="pill pill-g">+€0</span></td><td>100%</td></tr>
+            <tr><td>Feb 2025</td><td class="tmono">€10,500</td><td class="tmono">€10,500</td><td><span class="pill pill-g">+€0</span></td><td>100%</td></tr>
+            <tr><td>Mar 2025</td><td class="tmono">€10,500</td><td class="tmono">€10,500</td><td><span class="pill pill-g">+€0</span></td><td>100%</td></tr>
+            <tr><td>Apr 2025</td><td class="tmono">€10,500</td><td class="tmono">€10,500</td><td><span class="pill pill-g">+€0</span></td><td>100%</td></tr>
+            <tr style="background:#fff9f9"><td>May 2025</td><td class="tmono">€10,500</td><td class="tmono" style="color:var(--red)">€10,083</td><td><span class="pill pr">−€417</span></td><td style="color:var(--red);font-weight:500">96%</td></tr>
+          </tbody>
+
+        </table></div>
       </div>
     </div>
 
@@ -442,7 +451,7 @@ hr.dv{border:none;border-top:1px solid var(--border-light);margin:18px 0}
         <div>
           <p class="alert-title">Default detected — Vortex Analytics</p>
           <p class="alert-sub">Payment missed in Month 8 of 12. €2,085 outstanding. Risk tier downgraded to High.</p>
-          <div class="alert-acts"><button class="btn-r" onclick="openDP('vortex')">Review contract</button><button class="btn-ro">Send demand notice</button></div>
+          <div class="alert-acts"><button class="btn-r" onclick="openDP('vortex')">Review contract</button><button class="btn-ro" onclick="showDemandModal()">Send demand notice</button></div>
         </div>
       </div>
       <div class="card" style="padding:0;overflow:hidden">
@@ -479,7 +488,7 @@ hr.dv{border:none;border-top:1px solid var(--border-light);margin:18px 0}
         </div>
         <div class="set-sec-title">Banking</div>
         <div class="set-row"><div><div class="set-label">Linked bank account</div><div class="set-sub">AIB — IBAN IE29 AIBK 9311 5212 3456 78 (••••3421)</div></div><button class="btn-s" style="font-size:12.5px;padding:5px 11px">Change</button></div>
-        <div class="set-row" style="margin-bottom:18px"><div><div class="set-label">Payout schedule</div><div class="set-sub">Funds disbursed within 48 hours of acceptance</div></div><span class="pill pg">Active</span></div>
+        <div class="set-row" style="margin-bottom:18px"><div><div class="set-label">Payout schedule</div><div class="set-sub">Funds disbursed within 48 hours of acceptance</div></div><span class="pill pill-g">Active</span></div>
         <div class="set-sec-title">Notifications</div>
         <div class="set-row"><div><div class="set-label">Payment received</div><div class="set-sub">Email when a buyer makes a monthly payment</div></div><div class="mini-tog"></div></div>
         <div class="set-row"><div><div class="set-label">Payment missed</div><div class="set-sub">Immediate alert on missed or failed payment</div></div><div class="mini-tog"></div></div>
@@ -494,10 +503,10 @@ hr.dv{border:none;border-top:1px solid var(--border-light);margin:18px 0}
       <p class="pg-sub">Turn this agreement into upfront cash in minutes.</p>
       <div class="card"><p class="card-title">Buyer information</p>
         <div class="g2">
-          <div class="field"><label class="fl">Buyer company name</label><input type="text" placeholder="Acme Corp"/></div>
+          <div class="field" id="field-buyer"><label class="fl">Buyer company name</label><input id="inp-buyer" type="text" placeholder="Acme Corp" oninput="clearErr('field-buyer')"/><p id="err-buyer" class="field-err">Please enter a buyer company name.</p></div>
           <div class="field"><label class="fl">Website <span style="color:var(--text-light);font-weight:400">(optional)</span></label><input type="text" placeholder="acme.com"/></div>
-          <div class="field"><label class="fl">Contract value</label><div class="ipw"><span class="ip">€</span><input type="text" placeholder="0.00"/></div></div>
-          <div class="field"><label class="fl">Contract term</label><div class="sw"><select><option>12 months</option><option>24 months</option><option>36 months</option></select></div></div>
+          <div class="field" id="field-value"><label class="fl">Contract value</label><div class="ipw" id="ipw-value"><span class="ip">€</span><input id="inp-value" type="text" placeholder="0.00" oninput="clearErr('field-value')"/></div><p id="err-value" class="field-err">Please enter a contract value.</p></div>
+          <div class="field" id="field-term"><label class="fl">Contract term</label><div class="sw"><select id="inp-term" onchange="clearErr('field-term')"><option value="">Select term</option><option value="12">12 months</option><option value="24">24 months</option><option value="36">36 months</option></select></div><p id="err-term" class="field-err">Please select a contract term.</p></div>
         </div>
         <div class="field" style="margin-top:13px"><label class="fl">Billing frequency</label>
           <div style="margin-top:4px;display:inline-flex;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden">
@@ -507,21 +516,22 @@ hr.dv{border:none;border-top:1px solid var(--border-light);margin:18px 0}
           </div>
         </div>
       </div>
-      <div class="card"><p class="card-title">Contract document</p>
-        <div class="uz" onclick="simUpload(this)">
-          <div class="ui"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1.5v8M4 5l3-3.5L10 5M1.5 12.5h11" stroke="#5469d4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="card" id="field-doc"><p class="card-title">Contract document</p>
+        <div class="uz" id="upload-zone" onclick="simUpload(this)">
+          <div class="ui" id="ul-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1.5v8M4 5l3-3.5L10 5M1.5 12.5h11" stroke="#5469d4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <p style="font-size:13.5px;font-weight:500;color:var(--text);margin-bottom:3px" id="ul-label">Drag & drop or click to upload</p>
           <p style="font-size:12px;color:var(--text-light);margin-bottom:10px" id="ul-hint">PDF, DOCX, or signed agreement · Max 25 MB</p>
           <div style="font-size:11.5px;color:var(--text-light);display:flex;align-items:center;justify-content:center;gap:4px"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><rect x="1" y="3.5" width="8" height="5.5" rx="1.2" stroke="#8898aa" stroke-width=".9"/><path d="M3 3.5V3a2 2 0 014 0v.5" stroke="#8898aa" stroke-width=".9"/></svg>Used for underwriting only — never shared</div>
         </div>
+        <p id="err-doc" class="field-err" style="margin-top:8px">Please upload a signed contract document.</p>
       </div>
       <div class="card">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><p class="card-title" style="margin:0;padding:0;border:none">Auto-extracted fields</p><span class="pill pb">Auto-extracted</span></div>
-        <div class="exb"><div class="exr"><span class="ek">Start date</span><span class="ev">—</span></div><div class="exr"><span class="ek">End date</span><span class="ev">—</span></div><div class="exr"><span class="ek">Buyer signatory</span><span class="ev">—</span></div></div>
+        <div class="exb"><div class="exr"><span class="ek">Start date</span><span class="ev" id="ex-start">—</span></div><div class="exr"><span class="ek">End date</span><span class="ev" id="ex-end">—</span></div><div class="exr"><span class="ek">Buyer signatory</span><span class="ev" id="ex-signatory">—</span></div></div>
       </div>
       <div class="card">
         <div class="tog-row"><div><p class="t1">Get Paid Upfront</p><p class="t2">You receive the full annual value immediately. Buyer pays monthly.</p></div><div class="tsw"></div></div>
-        <div class="br"><button class="btn-s" onclick="go('overview')">← Cancel</button><button class="btn-p" onclick="go('screen2')">Continue to underwriting →</button></div>
+        <div class="br"><button class="btn-s" onclick="go('overview')">← Cancel</button><button class="btn-p" onclick="validateAndContinue()">Continue to underwriting →</button></div>
       </div>
     </div>
 
@@ -532,21 +542,21 @@ hr.dv{border:none;border-top:1px solid var(--border-light);margin:18px 0}
       <div class="card" style="padding:0;overflow:hidden">
         <div class="rh">
           <div class="hi"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10l4.5 4.5L17 6" stroke="#09825d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <p class="ht">Available upfront</p><p class="ha">€20,000</p>
+          <p class="ht">Available upfront</p><p class="ha" id="s2-total">€20,000</p>
           <p style="font-size:13px;color:var(--text-muted);margin-top:5px">Funds deposited within 24–48 hours of acceptance</p>
         </div>
         <div style="padding:22px 26px">
           <p class="seclabel" style="margin-bottom:9px">Breakdown</p>
           <div class="bkd">
-            <div class="brow"><span class="bl">Contract value</span><span class="bv">€20,000.00</span></div>
-            <div class="brow"><span class="bl">Monthly fee (4.0%)</span><span class="bv" style="color:var(--text-muted)">−€800.00</span></div>
-            <div class="brow bt"><span class="bl">You receive</span><span class="bv">€19,200.00</span></div>
+            <div class="brow"><span class="bl">Contract value</span><span class="bv" id="s2-value">€20,000.00</span></div>
+            <div class="brow"><span class="bl">Monthly fee (4.0%)</span><span class="bv" style="color:var(--text-muted)" id="s2-fee">−€800.00</span></div>
+            <div class="brow bt"><span class="bl">You receive</span><span class="bv" id="s2-net">€19,200.00</span></div>
           </div>
           <hr class="dv"/>
           <p class="seclabel" style="margin-bottom:9px">Buyer repayment</p>
-          <div class="buyer-row"><div><p style="font-size:12px;color:var(--text-muted)">Buyer will be charged</p><p style="font-size:15px;font-weight:600;color:var(--text)">€1,666.67 / month</p></div><span class="pill pg">● Approved — Standard Tier</span></div>
+          <div class="buyer-row"><div><p style="font-size:12px;color:var(--text-muted)">Buyer will be charged</p><p style="font-size:15px;font-weight:600;color:var(--text)" id="s2-monthly">€1,666.67 / month</p></div><span class="pill pill-g">● Approved — Standard Tier</span></div>
           <div class="notice"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.2" stroke="#5469d4" stroke-width="1.1"/><path d="M6.5 4v3.5M6.5 9v.4" stroke="#5469d4" stroke-width="1.1" stroke-linecap="round"/></svg><p>By accepting, you agree to Monthly's <a href="#" style="color:var(--blue);text-decoration:underline">funding terms</a>. Funds are non-reversible once disbursed.</p></div>
-          <div class="br"><button class="btn-s" onclick="go('upload')">← Revise contract</button><button class="btn-p" onclick="go('screen3')">Accept & Fund Contract →</button></div>
+          <div class="br"><button class="btn-s" onclick="go('upload')">← Revise contract</button><button class="btn-p" id="accept-btn" onclick="showFundingModal()">Accept &amp; Fund Contract →</button></div>
         </div>
       </div>
     </div>
@@ -572,6 +582,71 @@ hr.dv{border:none;border-top:1px solid var(--border-light);margin:18px 0}
   </div><!-- /content -->
 </main>
 </div><!-- /app -->
+
+<!-- DEMAND MODAL -->
+<div id="demand-modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(10,37,64,.3);z-index:300;align-items:center;justify-content:center;animation:fi .15s" onclick="closeDemandModal(event)">
+  <div id="demand-modal" style="background:#fff;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.15),0 0 0 1px rgba(0,0,0,.05);width:100%;max-width:420px;margin:0 24px;animation:modal-in .2s cubic-bezier(.34,1.56,.64,1)">
+    <div style="padding:24px 24px 0;display:flex;align-items:flex-start;justify-content:space-between">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:36px;height:36px;background:var(--green-bg);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5 6.5-7" stroke="#09825d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <p style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:2px">Reminder delivered successfully</p>
+          <p style="font-size:12px;color:var(--text-light)">Vortex Analytics · Sent just now</p>
+        </div>
+      </div>
+      <button onclick="closeDemandModal()" style="width:26px;height:26px;border:1px solid var(--border);border-radius:5px;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-light);flex-shrink:0;margin-left:12px" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='#fff'">
+        <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 1.5l8 8M9.5 1.5l-8 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div style="padding:16px 24px 8px">
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px 16px">
+        <p style="font-size:13.5px;color:var(--text-muted);line-height:1.65">We suggest a <strong style="color:var(--text);font-weight:600">direct follow-up call</strong> to assess the reason for non-payment and take appropriate action.</p>
+      </div>
+    </div>
+    <div style="padding:12px 24px 20px;display:flex;gap:8px;justify-content:flex-end">
+      <button onclick="closeDemandModal()" class="btn-s" style="font-size:13px;padding:7px 14px">Dismiss</button>
+      <button class="btn-p" style="font-size:13px;padding:7px 14px">Log a call note</button>
+    </div>
+  </div>
+</div>
+
+<!-- FUNDING MODAL -->
+<div id="funding-modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(10,37,64,.35);z-index:300;align-items:center;justify-content:center">
+  <div style="background:#fff;border-radius:12px;box-shadow:0 24px 64px rgba(0,0,0,.18),0 0 0 1px rgba(0,0,0,.05);width:100%;max-width:380px;margin:0 24px;padding:36px 32px;text-align:center;animation:modal-in .25s cubic-bezier(.34,1.56,.64,1)">
+    <div id="fm-spinner-wrap" style="margin-bottom:20px">
+      <div style="width:52px;height:52px;margin:0 auto;position:relative">
+        <svg style="animation:spin 1.1s linear infinite" width="52" height="52" viewBox="0 0 52 52" fill="none">
+          <circle cx="26" cy="26" r="22" stroke="var(--border)" stroke-width="3"/>
+          <path d="M26 4a22 22 0 0 1 22 22" stroke="var(--blue)" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+    <p id="fm-title" style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px;letter-spacing:-.2px">Processing contract</p>
+    <p id="fm-sub" style="font-size:13px;color:var(--text-muted);line-height:1.6">Verifying details and initiating fund transfer…</p>
+    <div id="fm-steps" style="margin-top:20px;display:flex;flex-direction:column;gap:0;background:var(--bg);border:1px solid var(--border);border-radius:8px;overflow:hidden;text-align:left">
+      <div class="fm-step" id="fms-1" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border-light)">
+        <div class="fm-step-icon" style="width:18px;height:18px;flex-shrink:0;display:flex;align-items:center;justify-content:center">
+          <svg class="fm-spin-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" style="animation:spin 1s linear infinite"><circle cx="7" cy="7" r="5.5" stroke="var(--border)" stroke-width="1.5"/><path d="M7 1.5a5.5 5.5 0 0 1 5.5 5.5" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <span style="font-size:12.5px;color:var(--text-muted)">Validating contract terms</span>
+      </div>
+      <div class="fm-step" id="fms-2" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border-light);opacity:.4">
+        <div class="fm-step-icon" style="width:18px;height:18px;flex-shrink:0;display:flex;align-items:center;justify-content:center">
+          <div style="width:8px;height:8px;border-radius:50%;background:var(--border)"></div>
+        </div>
+        <span style="font-size:12.5px;color:var(--text-muted)">Confirming underwriting approval</span>
+      </div>
+      <div class="fm-step" id="fms-3" style="display:flex;align-items:center;gap:10px;padding:10px 14px;opacity:.4">
+        <div class="fm-step-icon" style="width:18px;height:18px;flex-shrink:0;display:flex;align-items:center;justify-content:center">
+          <div style="width:8px;height:8px;border-radius:50%;background:var(--border)"></div>
+        </div>
+        <span style="font-size:12.5px;color:var(--text-muted)">Initiating payout transfer</span>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- DETAIL PANEL -->
 <div class="dp-ov" id="dp-ov" onclick="closeDPov(event)">
@@ -608,8 +683,8 @@ const D=[
   {id:'prism', co:'Prism Data',        ini:'PD',v:4400, m:367, mo:12,pd:3, st:'active',   ri:'Low'},
 ];
 
-const sp={active:'<span class="pill pg">● Active</span>',default:'<span class="pill pr">⚠ Default</span>',completed:'<span class="pill pgr">✓ Done</span>'};
-const rp={Low:'<span class="pill pg">Low</span>',Medium:'<span class="pill pa">Medium</span>',High:'<span class="pill pr">High</span>'};
+const sp={active:'<span class="pill pill-g">● Active</span>',default:'<span class="pill pr">⚠ Default</span>',completed:'<span class="pill pgr">✓ Done</span>'};
+const rp={Low:'<span class="pill pill-g">Low</span>',Medium:'<span class="pill pa">Medium</span>',High:'<span class="pill pr">High</span>'};
 const f=n=>'€'+n.toLocaleString('en-IE');
 const pct=(a,b)=>Math.round(a/b*100);
 const avCls=d=>d.st==='default'?'r':d.st==='completed'?'g':'';
@@ -649,7 +724,7 @@ function renderOV(){
       <td><div style="display:flex;align-items:center;gap:7px"><div class="pbw" style="width:75px"><div class="pbb ${d.st==='default'?'dn':''}" style="width:${pct(d.pd,d.mo)}%"></div></div><span style="font-size:12px;color:var(--text-muted)">${d.pd}/${d.mo}</span></div></td>
     </tr>`).join('');
   const vals=[62,71,78,85,80,90,98,95];
-  document.getElementById('ov-chart').innerHTML=vals.map((v,i)=>`<div class="bar ${i===vals.length-1?'hi':''}" style="height:${v}%"></div>`).join('');
+  document.getElementById('ov-chart').innerHTML=vals.map(v=>`<div class="bar" style="height:${v}%"></div>`).join('');
 }
 
 // CONTRACTS
@@ -669,28 +744,50 @@ function renderC(){
     </tr>`).join('');
 }
 
-// PAYOUTS
+// PAYOUTS — one row per contract, date funded, contract name, value, fee, net paid, status
 function renderPO(){
-  const base=D.reduce((a,d)=>a+d.m,0);
-  const months=['Oct 2024','Nov 2024','Dec 2024','Jan 2025','Feb 2025','Mar 2025','Apr 2025'];
-  document.getElementById('po-tbody').innerHTML=months.map(m=>`
-    <tr><td class="tm">${m}</td><td>Monthly collection — all contracts</td><td class="tm">20</td><td class="tmono" style="font-weight:500">${f(base)}</td><td><span class="pill pg">● Paid</span></td></tr>`).join('')+
-  `<tr style="background:#fff9f9"><td class="tm">May 2025</td><td>Monthly — Vortex missed</td><td class="tm">20</td><td class="tmono" style="font-weight:500;color:var(--red)">${f(base-417)}</td><td><span class="pill pr">⚠ Short</span></td></tr>
-   <tr><td class="tm">Jun 2025</td><td>Monthly — upcoming</td><td class="tm">20</td><td class="tmono" style="color:var(--text-muted)">${f(base)}</td><td><span class="pill pgr">Pending</span></td></tr>`;
+  const funded=[
+    {date:'12 Sep 2024',id:'nova'},
+    {date:'18 Sep 2024',id:'acme'},
+    {date:'01 Oct 2024',id:'drift'},
+    {date:'07 Oct 2024',id:'loop'},
+    {date:'14 Oct 2024',id:'pulse'},
+    {date:'21 Oct 2024',id:'stack'},
+    {date:'28 Oct 2024',id:'beam'},
+    {date:'04 Nov 2024',id:'cedar'},
+    {date:'11 Nov 2024',id:'ember'},
+    {date:'18 Nov 2024',id:'flux'},
+    {date:'25 Nov 2024',id:'grove'},
+    {date:'02 Dec 2024',id:'haven'},
+    {date:'09 Dec 2024',id:'iris'},
+    {date:'16 Dec 2024',id:'jade'},
+    {date:'23 Dec 2024',id:'kite'},
+    {date:'06 Jan 2025',id:'luma'},
+    {date:'13 Jan 2025',id:'mesh'},
+    {date:'20 Jan 2025',id:'orbit'},
+    {date:'27 Jan 2025',id:'prism'},
+    {date:'03 Feb 2025',id:'vortex'},
+  ];
+  document.getElementById('po-tbody').innerHTML=funded.map(row=>{
+    const d=D.find(x=>x.id===row.id);
+    const fee=Math.round(d.v*0.04);
+    const net=d.v-fee;
+    const isDefault=d.st==='default';
+    const statusPill=isDefault
+      ?'<span class="pill pr">⚠ Default</span>'
+      :'<span class="pill pill-g">● Paid</span>';
+    return `<tr onclick="openDP('${d.id}')" ${isDefault?'style="background:#fff9f9"':''}>
+      <td class="tm" style="white-space:nowrap">${row.date}</td>
+      <td><div class="twa"><div class="av ${avCls(d)}">${d.ini}</div><div><div style="font-size:13.5px;font-weight:500;color:var(--text)">${d.co}</div><div style="font-size:12px;color:var(--text-light)">${d.mo}-month contract</div></div></div></td>
+      <td class="tmono">${f(d.v)}</td>
+      <td class="tmono" style="color:var(--text-muted)">−${f(fee)}</td>
+      <td class="tmono" style="font-weight:600;color:${isDefault?'var(--red)':'var(--text)'}">${f(net)}</td>
+      <td>${statusPill}</td>
+    </tr>`;
+  }).join('');
 }
 
-// BUYERS
-function renderB(){
-  document.getElementById('b-tbody').innerHTML=D.map(d=>`
-    <tr onclick="openDP('${d.id}')">
-      <td><div class="twa"><div class="av ${avCls(d)}">${d.ini}</div>${d.co}</div></td>
-      <td class="tmono">${f(d.v)}</td>
-      <td class="tmono">${f(d.m)}/mo</td>
-      <td class="tmono">${f(d.pd*d.m)}</td>
-      <td><div class="pbw" style="width:60px"><div class="pbb ${d.st==='default'?'dn':''}" style="width:${pct(d.pd,d.mo)}%"></div></div></td>
-      <td>${sp[d.st]}</td>
-    </tr>`).join('');
-}
+
 
 // UNDERWRITING
 function renderUW(){
@@ -749,15 +846,176 @@ function closeDPov(e){if(e.target===document.getElementById('dp-ov'))closeDP()}
 function closeDP(){document.getElementById('dp-ov').classList.remove('open')}
 
 // FORM
-function simUpload(z){
-  document.getElementById('ul-label').textContent='contract_signed.pdf';
-  document.getElementById('ul-hint').textContent='Uploaded · 142 KB · Ready for processing';
-  z.style.borderColor='#09825d';z.style.background='#d3f8ee';
+let docUploaded = false;
+
+function fmtEuro(n){
+  return '€' + n.toLocaleString('en-IE', {minimumFractionDigits:2, maximumFractionDigits:2});
 }
+
+function fmtEuroShort(n){
+  return '€' + n.toLocaleString('en-IE');
+}
+
+function clearErr(fieldId){
+  const f = document.getElementById(fieldId);
+  if(f){ f.classList.remove('err'); const e=f.querySelector('.field-err'); if(e) e.classList.remove('show'); }
+}
+
+function showErr(fieldId, msg){
+  const f = document.getElementById(fieldId);
+  if(!f) return;
+  f.classList.add('err');
+  const e = f.querySelector('.field-err');
+  if(e){ if(msg) e.textContent=msg; e.classList.add('show'); }
+  // scroll to first error
+  f.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+function validateAndContinue(){
+  let valid = true;
+
+  const buyer = document.getElementById('inp-buyer').value.trim();
+  const valueRaw = document.getElementById('inp-value').value.replace(/[€,\s]/g,'').trim();
+  const term = document.getElementById('inp-term').value;
+
+  // Clear all errors first
+  ['field-buyer','field-value','field-term'].forEach(id=>{
+    const f=document.getElementById(id);
+    if(f){ f.classList.remove('err'); f.querySelector('.field-err').classList.remove('show'); }
+  });
+  document.getElementById('field-doc').classList.remove('err');
+  document.getElementById('err-doc').classList.remove('show');
+
+  // Validate in order, only scroll to first
+  let firstErr = null;
+
+  if(!buyer){
+    document.getElementById('field-buyer').classList.add('err');
+    document.getElementById('err-buyer').classList.add('show');
+    if(!firstErr) firstErr = 'field-buyer';
+    valid = false;
+  }
+
+  const contractValue = parseFloat(valueRaw);
+  if(!valueRaw || isNaN(contractValue) || contractValue <= 0){
+    document.getElementById('field-value').classList.add('err');
+    document.getElementById('err-value').classList.add('show');
+    if(!firstErr) firstErr = 'field-value';
+    valid = false;
+  }
+
+  if(!term){
+    document.getElementById('field-term').classList.add('err');
+    document.getElementById('err-term').classList.add('show');
+    if(!firstErr) firstErr = 'field-term';
+    valid = false;
+  }
+
+  if(!docUploaded){
+    document.getElementById('field-doc').classList.add('err');
+    document.getElementById('err-doc').classList.add('show');
+    if(!firstErr) firstErr = 'field-doc';
+    valid = false;
+  }
+
+  if(!valid){
+    document.getElementById(firstErr).scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+
+  // All valid — populate screen 2
+  const termMonths = parseInt(term);
+  const fee = contractValue * 0.04;
+  const net = contractValue - fee;
+  const monthly = contractValue / termMonths;
+
+  document.getElementById('s2-total').textContent = fmtEuroShort(contractValue);
+  document.getElementById('s2-value').textContent = fmtEuro(contractValue);
+  document.getElementById('s2-fee').textContent = '−' + fmtEuro(fee);
+  document.getElementById('s2-net').textContent = fmtEuro(net);
+  document.getElementById('s2-monthly').textContent = fmtEuro(monthly) + ' / month';
+
+  go('screen2');
+}
+
+function simUpload(z){
+  document.getElementById('ul-label').textContent='Scanning document…';
+  document.getElementById('ul-hint').textContent='Extracting contract details';
+  z.style.borderColor='var(--blue)';z.style.background='var(--blue-light)';
+  setTimeout(()=>{
+    docUploaded = true;
+    // Clear doc error if showing
+    document.getElementById('field-doc').classList.remove('err');
+    document.getElementById('err-doc').classList.remove('show');
+    document.getElementById('ul-label').textContent='contract_signed.pdf';
+    document.getElementById('ul-hint').textContent='Uploaded · 142 KB · Ready for processing';
+    z.style.borderColor='#09825d';z.style.background='#d3f8ee';
+    const today=new Date();
+    const end=new Date(today);end.setFullYear(end.getFullYear()+1);
+    const fmt=d=>d.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+    const startEl=document.getElementById('ex-start');
+    const endEl=document.getElementById('ex-end');
+    const sigEl=document.getElementById('ex-signatory');
+    setTimeout(()=>{ startEl.textContent=fmt(today); startEl.style.animation='fieldIn .3s ease'; },200);
+    setTimeout(()=>{ endEl.textContent=fmt(end); endEl.style.animation='fieldIn .3s ease'; },400);
+    setTimeout(()=>{ sigEl.textContent='Sarah Mitchell, CFO'; sigEl.style.animation='fieldIn .3s ease'; },600);
+  },1200);
+}
+
 function setFB(btn){btn.closest('div').querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));btn.classList.add('on')}
 
+// FUNDING MODAL
+function stepDone(id){
+  const el=document.getElementById(id);
+  el.style.opacity='1';
+  el.querySelector('.fm-step-icon').innerHTML=`<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="var(--green-bg)"/><path d="M4 7l2.5 2.5 4-4" stroke="#09825d" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  el.querySelector('span').style.color='var(--text)';
+}
+function stepActive(id){
+  const el=document.getElementById(id);
+  el.style.opacity='1';
+  el.querySelector('.fm-step-icon').innerHTML=`<svg class="fm-spin-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" style="animation:spin 1s linear infinite"><circle cx="7" cy="7" r="5.5" stroke="var(--border)" stroke-width="1.5"/><path d="M7 1.5a5.5 5.5 0 0 1 5.5 5.5" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round"/></svg>`;
+}
+
+function showFundingModal(){
+  const ov=document.getElementById('funding-modal-overlay');
+  ov.style.display='flex';
+  // Reset steps
+  ['fms-1','fms-2','fms-3'].forEach(id=>{
+    const el=document.getElementById(id);
+    el.style.opacity= id==='fms-1'?'1':'0.4';
+  });
+  document.getElementById('fm-title').textContent='Processing contract';
+  document.getElementById('fm-sub').textContent='Verifying details and initiating fund transfer…';
+
+  // Step 1 — already spinning, mark done after 1.2s
+  setTimeout(()=>{ stepDone('fms-1'); stepActive('fms-2'); document.getElementById('fm-sub').textContent='Confirming underwriting approval…'; }, 1200);
+  // Step 2 done after 2.4s
+  setTimeout(()=>{ stepDone('fms-2'); stepActive('fms-3'); document.getElementById('fm-sub').textContent='Initiating payout transfer…'; }, 2400);
+  // Step 3 done after 3.4s — close modal and go to screen3
+  setTimeout(()=>{
+    stepDone('fms-3');
+    document.getElementById('fm-title').textContent='All done';
+    document.getElementById('fm-sub').textContent='Your contract has been funded.';
+    document.getElementById('fm-spinner-wrap').innerHTML=`<div style="width:52px;height:52px;margin:0 auto;background:var(--green-bg);border-radius:50%;display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="#09825d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>`;
+  }, 3400);
+  // Navigate after 4s
+  setTimeout(()=>{ ov.style.display='none'; go('screen3'); }, 4000);
+}
+
+// DEMAND MODAL
+function showDemandModal(){
+  const ov=document.getElementById('demand-modal-overlay');
+  ov.style.display='flex';
+}
+function closeDemandModal(e){
+  if(!e||e.target===document.getElementById('demand-modal-overlay')){
+    document.getElementById('demand-modal-overlay').style.display='none';
+  }
+}
+
 // INIT
-renderOV();renderC();renderPO();renderB();renderUW();
+renderOV();renderC();renderPO();renderUW();
 </script>
 </body>
 </html>
