@@ -1243,20 +1243,12 @@ async function handleLogin(){
   btn.disabled = true;
   btnTxt.innerHTML = `<svg style="animation:spin 1s linear infinite;flex-shrink:0" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/><path d="M7 1.5a5.5 5.5 0 0 1 5.5 5.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg> Signing in…`;
 
-  // Fire Loops contact create (non-blocking — we let them in regardless)
+  // Fire Loops capture via newsletter form endpoint (CORS-safe)
   try {
-    await fetch('https://app.loops.so/api/v1/contacts/create', {
+    await fetch('https://app.loops.so/api/newsletter-form/cmnepu0sz09zl0i1mk5z3kkmo', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer d15c5a818073a6a2668fd00f7de954f1'
-      },
-      body: JSON.stringify({
-        email: email,
-        source: 'Monthly Demo',
-        userGroup: 'Demo Viewer',
-        subscribed: true
-      })
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: 'userGroup=Demo+Viewer&mailingLists=&email=' + encodeURIComponent(email)
     });
   } catch(e){ /* silent — always let them in */ }
 
