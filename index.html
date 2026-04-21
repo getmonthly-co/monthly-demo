@@ -566,14 +566,78 @@ tfoot tr td{border-top:2px solid var(--border)}
       <div class="sc">
         <div class="si"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12l5.5 5.5L20 7" stroke="#09825d" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <p style="font-size:22px;font-weight:600;letter-spacing:-.4px;margin-bottom:8px">Contract Funded</p>
-        <p style="font-size:13.5px;color:var(--text-muted);line-height:1.65;margin-bottom:22px">Your payout is on the way. Funds will arrive in your linked bank account within 24–48 hours.</p>
-        <span style="display:inline-block;font-size:12.5px;font-weight:500;color:var(--blue);background:var(--blue-light);border:1px solid rgba(84,105,212,.15);border-radius:var(--radius);padding:4px 12px;margin-bottom:26px">€19,200.00 en route</span>
-        <div class="timeline">
-          <div class="ts"><div class="tsi dn"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#09825d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span style="flex:1;font-size:13px;font-weight:500;color:var(--text-muted)">Contract uploaded</span><span style="font-size:11px;font-weight:500;color:var(--green);background:var(--green-bg);border-radius:4px;padding:2px 7px">Done</span></div>
-          <div class="ts"><div class="tsi dn"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#09825d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span style="flex:1;font-size:13px;font-weight:500;color:var(--text-muted)">Underwritten & approved</span><span style="font-size:11px;font-weight:500;color:var(--green);background:var(--green-bg);border-radius:4px;padding:2px 7px">Done</span></div>
-          <div class="ts"><div class="tsi dn"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#09825d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span style="flex:1;font-size:13px;font-weight:500;color:var(--text-muted)">Contract funded</span><span style="font-size:11px;font-weight:500;color:var(--green);background:var(--green-bg);border-radius:4px;padding:2px 7px">Done</span></div>
-          <div class="ts"><div class="tsi ac"><div class="pulse" style="width:7px;height:7px;background:#5469d4;border-radius:50%"></div></div><span style="flex:1;font-size:13px;font-weight:500;color:var(--text)">Payout transfer<span style="display:block;font-size:11.5px;color:var(--text-light);font-weight:400;margin-top:1px">Estimated 24–48 hours</span></span><span style="font-size:11px;font-weight:500;color:var(--blue);background:var(--blue-light);border-radius:4px;padding:2px 7px">In progress</span></div>
+        <p style="font-size:13.5px;color:var(--text-muted);line-height:1.65;margin-bottom:16px">Your buyer has been notified by email. Funds will be released to your account once they accept the offer and add their payment details.</p>
+        <span id="s3-amount-tag" style="display:inline-block;font-size:12.5px;font-weight:500;color:var(--blue);background:var(--blue-light);border:1px solid rgba(84,105,212,.15);border-radius:var(--radius);padding:4px 12px;margin-bottom:26px">€19,200.00 · Pending release</span>
+
+        <div class="timeline" id="s3-timeline">
+          <!-- Step 1: uploaded -->
+          <div class="ts">
+            <div class="tsi dn"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#09825d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span style="flex:1;font-size:13px;font-weight:500;color:var(--text-muted)">Contract uploaded</span>
+            <span style="font-size:11px;font-weight:500;color:var(--green);background:var(--green-bg);border-radius:4px;padding:2px 7px">Done</span>
+          </div>
+          <!-- Step 2: underwritten -->
+          <div class="ts">
+            <div class="tsi dn"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#09825d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span style="flex:1;font-size:13px;font-weight:500;color:var(--text-muted)">Underwritten & approved</span>
+            <span style="font-size:11px;font-weight:500;color:var(--green);background:var(--green-bg);border-radius:4px;padding:2px 7px">Done</span>
+          </div>
+          <!-- Step 3: funded -->
+          <div class="ts">
+            <div class="tsi dn"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#09825d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span style="flex:1;font-size:13px;font-weight:500;color:var(--text-muted)">Contract funded</span>
+            <span style="font-size:11px;font-weight:500;color:var(--green);background:var(--green-bg);border-radius:4px;padding:2px 7px">Done</span>
+          </div>
+          <!-- Step 4: buyer accepted -->
+          <div class="ts" id="s3-step-accepted">
+            <div class="tsi" style="background:var(--bg);border:1px solid var(--border)">
+              <div style="width:7px;height:7px;border-radius:50%;background:var(--border)"></div>
+            </div>
+            <span style="flex:1;font-size:13px;font-weight:500;color:var(--text-muted)">
+              Buyer accepted offer
+              <span style="display:block;font-size:11.5px;color:var(--text-light);font-weight:400;margin-top:1px">Awaiting buyer confirmation</span>
+            </span>
+            <span style="font-size:11px;font-weight:500;color:var(--text-muted);background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:2px 7px">Pending</span>
+          </div>
+          <!-- Step 5: payment details -->
+          <div class="ts" id="s3-step-payment" style="opacity:.45">
+            <div class="tsi" style="background:var(--bg);border:1px solid var(--border)">
+              <div style="width:7px;height:7px;border-radius:50%;background:var(--border)"></div>
+            </div>
+            <span style="flex:1;font-size:13px;font-weight:500;color:var(--text-muted)">
+              Buyer added payment details
+              <span style="display:block;font-size:11.5px;color:var(--text-light);font-weight:400;margin-top:1px">Awaiting payment setup</span>
+            </span>
+            <span style="font-size:11px;font-weight:500;color:var(--text-muted);background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:2px 7px">Pending</span>
+          </div>
+          <!-- Step 6: payout -->
+          <div class="ts" id="s3-step-payout" style="opacity:.45">
+            <div class="tsi" style="background:var(--bg);border:1px solid var(--border)">
+              <div style="width:7px;height:7px;border-radius:50%;background:var(--border)"></div>
+            </div>
+            <span style="flex:1;font-size:13px;font-weight:500;color:var(--text-muted)">
+              Payout transfer
+              <span style="display:block;font-size:11.5px;color:var(--text-light);font-weight:400;margin-top:1px">Pending customer acceptance</span>
+            </span>
+            <span style="font-size:11px;font-weight:500;color:var(--text-muted);background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:2px 7px">Pending</span>
+          </div>
         </div>
+
+        <!-- Demo controls to simulate buyer actions -->
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px;margin-bottom:16px;text-align:left;width:100%">
+          <p style="font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text-light);margin-bottom:10px">Demo — simulate buyer actions</p>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <button class="btn-s" id="sim-accept-btn" onclick="simBuyerAccept()" style="font-size:13px;justify-content:flex-start;gap:8px;text-align:left">
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="1" y="1" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M4 6.5l2 2 3.5-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Buyer accepts the offer
+            </button>
+            <button class="btn-s" id="sim-payment-btn" onclick="simBuyerPayment()" style="font-size:13px;justify-content:flex-start;gap:8px;text-align:left;opacity:.4;pointer-events:none">
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="1" y="3" width="11" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M1 5.5h11M3.5 8h2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+              Buyer adds payment details
+            </button>
+          </div>
+        </div>
+
         <button class="btn-p" onclick="go('upload')" style="width:100%;margin-bottom:9px">Upload another contract</button>
         <button class="btn-s" onclick="go('contracts')" style="width:100%">View all contracts</button>
       </div>
@@ -1012,6 +1076,77 @@ function closeDemandModal(e){
   if(!e||e.target===document.getElementById('demand-modal-overlay')){
     document.getElementById('demand-modal-overlay').style.display='none';
   }
+}
+
+// BUYER SIMULATION — screen 3
+function markStepDone(stepEl, label){
+  stepEl.style.opacity = '1';
+  stepEl.style.transition = 'opacity .3s ease';
+  const icon = stepEl.querySelector('.tsi');
+  icon.className = 'tsi dn';
+  icon.innerHTML = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-6" stroke="#09825d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  const textSpan = stepEl.querySelector('span[style*="flex:1"]');
+  textSpan.querySelector('span')?.remove();
+  textSpan.style.color = 'var(--text-muted)';
+  const badge = stepEl.querySelector('span:last-child');
+  badge.textContent = 'Done';
+  badge.style.cssText = 'font-size:11px;font-weight:500;color:var(--green);background:var(--green-bg);border-radius:4px;padding:2px 7px';
+}
+
+function markStepActive(stepEl, sublabel){
+  stepEl.style.opacity = '1';
+  stepEl.style.transition = 'opacity .3s ease';
+  const icon = stepEl.querySelector('.tsi');
+  icon.className = 'tsi ac';
+  icon.innerHTML = `<div class="pulse" style="width:7px;height:7px;background:#5469d4;border-radius:50%"></div>`;
+  const sub = stepEl.querySelector('span[style*="flex:1"] span');
+  if(sub) sub.textContent = sublabel;
+  const badge = stepEl.querySelector('span:last-child');
+  badge.textContent = 'In progress';
+  badge.style.cssText = 'font-size:11px;font-weight:500;color:var(--blue);background:var(--blue-light);border-radius:4px;padding:2px 7px';
+}
+
+function simBuyerAccept(){
+  const acceptBtn = document.getElementById('sim-accept-btn');
+  acceptBtn.disabled = true;
+  acceptBtn.style.opacity = '.4';
+  acceptBtn.style.pointerEvents = 'none';
+
+  // Mark accepted step done
+  setTimeout(()=>{
+    markStepDone(document.getElementById('s3-step-accepted'), 'Buyer accepted offer');
+    // Unlock payment button
+    const payBtn = document.getElementById('sim-payment-btn');
+    payBtn.style.opacity = '1';
+    payBtn.style.pointerEvents = 'auto';
+    // Make payment step active
+    markStepActive(document.getElementById('s3-step-payment'), 'Buyer setting up payment');
+    document.getElementById('s3-step-payment').style.opacity = '1';
+  }, 600);
+}
+
+function simBuyerPayment(){
+  const payBtn = document.getElementById('sim-payment-btn');
+  payBtn.disabled = true;
+  payBtn.style.opacity = '.4';
+  payBtn.style.pointerEvents = 'none';
+
+  setTimeout(()=>{
+    // Mark payment step done
+    markStepDone(document.getElementById('s3-step-payment'), 'Buyer added payment details');
+    // Make payout step active
+    const payoutStep = document.getElementById('s3-step-payout');
+    payoutStep.style.opacity = '1';
+    markStepActive(payoutStep, 'Estimated 24–48 hours');
+
+    // Update hero copy and amount tag
+    document.querySelector('#pg-screen3 .sc > p:nth-of-type(1) + p').textContent = 'Your payout is on the way. Funds will arrive in your linked bank account within 24–48 hours.';
+    const tag = document.getElementById('s3-amount-tag');
+    tag.textContent = tag.textContent.replace('Pending release', 'en route');
+    tag.style.color = 'var(--green)';
+    tag.style.background = 'var(--green-bg)';
+    tag.style.borderColor = 'rgba(9,130,93,.2)';
+  }, 600);
 }
 
 // INIT
