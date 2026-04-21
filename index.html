@@ -263,9 +263,71 @@ tfoot tr td{border-top:2px solid var(--border)}
 .field.err input,.field.err select{border-color:var(--red);box-shadow:0 0 0 3px rgba(192,57,43,.1)}
 .field.err .ipw{border-color:var(--red);box-shadow:0 0 0 3px rgba(192,57,43,.1)}
 .card.err{border-color:#fca5a5}
+
+/* LOGIN SCREEN */
+#login-screen{position:fixed;inset:0;background:var(--bg);z-index:999;display:flex;align-items:center;justify-content:center;padding:24px}
+.login-card{background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.08),0 1px 4px rgba(0,0,0,.04);width:100%;max-width:380px;padding:36px 36px 32px}
+.login-logo{display:flex;align-items:center;gap:9px;margin-bottom:28px}
+.login-logo-icon{width:32px;height:32px;background:var(--blue);border-radius:7px;display:flex;align-items:center;justify-content:center}
+.login-logo-name{font-size:17px;font-weight:600;color:var(--text);letter-spacing:-.3px}
+.login-title{font-size:20px;font-weight:600;color:var(--text);letter-spacing:-.4px;margin-bottom:6px}
+.login-sub{font-size:13.5px;color:var(--text-muted);margin-bottom:24px;line-height:1.5}
+.login-field{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.login-label{font-size:12px;font-weight:500;color:var(--text)}
+.login-input{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;font-size:14px;color:var(--text);font-family:inherit;outline:none;transition:border-color .15s,box-shadow .15s;width:100%}
+.login-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(84,105,212,.12)}
+.login-input::placeholder{color:var(--text-light)}
+.login-input.err{border-color:var(--red);box-shadow:0 0 0 3px rgba(192,57,43,.1)}
+.login-err{font-size:12px;color:var(--red);margin-top:4px;display:none}
+.login-err.show{display:block}
+.login-btn{width:100%;padding:11px;background:var(--blue);color:#fff;border:none;border-radius:var(--radius);font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;transition:background .15s;margin-top:6px;display:flex;align-items:center;justify-content:center;gap:8px}
+.login-btn:hover{background:var(--blue-hover)}
+.login-btn:disabled{opacity:.7;cursor:default}
+.login-divider{border:none;border-top:1px solid var(--border-light);margin:20px 0}
+.login-footer{font-size:12px;color:var(--text-light);text-align:center;line-height:1.6}
+@keyframes login-out{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(.98)}}
 </style>
 </head>
 <body>
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-logo-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 11l6-8 6 8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span class="login-logo-name">Monthly</span>
+    </div>
+    <p class="login-title">Welcome back</p>
+    <p class="login-sub">Sign in to your Monthly account to continue.</p>
+
+    <div class="login-field">
+      <label class="login-label">Work email</label>
+      <input class="login-input" id="login-email" type="email" placeholder="you@company.com" autocomplete="email"/>
+      <span class="login-err" id="login-email-err">Please enter a valid email address.</span>
+    </div>
+    <div class="login-field">
+      <label class="login-label" style="display:flex;justify-content:space-between">
+        Password
+        <span style="font-weight:400;color:var(--blue);cursor:pointer">Forgot password?</span>
+      </label>
+      <input class="login-input" id="login-password" type="password" placeholder="••••••••" autocomplete="current-password"/>
+      <span class="login-err" id="login-password-err">Please enter your password.</span>
+    </div>
+
+    <button class="login-btn" id="login-btn" onclick="handleLogin()">
+      <span id="login-btn-text">Sign in</span>
+    </button>
+
+    <hr class="login-divider"/>
+    <p class="login-footer">
+      By signing in you agree to Monthly's
+      <span style="color:var(--blue);cursor:pointer">Terms of Service</span> and
+      <span style="color:var(--blue);cursor:pointer">Privacy Policy</span>.
+    </p>
+  </div>
+</div>
+
 <div class="app">
 
 <!-- SIDEBAR -->
@@ -1148,6 +1210,70 @@ function simBuyerPayment(){
     tag.style.borderColor = 'rgba(9,130,93,.2)';
   }, 600);
 }
+
+// LOGIN
+async function handleLogin(){
+  const emailEl = document.getElementById('login-email');
+  const passEl  = document.getElementById('login-password');
+  const btn     = document.getElementById('login-btn');
+  const btnTxt  = document.getElementById('login-btn-text');
+  const emailErr= document.getElementById('login-email-err');
+  const passErr = document.getElementById('login-password-err');
+
+  // Reset errors
+  emailEl.classList.remove('err'); emailErr.classList.remove('show');
+  passEl.classList.remove('err');  passErr.classList.remove('show');
+
+  const email = emailEl.value.trim();
+  const pass  = passEl.value;
+  let valid = true;
+
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if(!emailOk){
+    emailEl.classList.add('err'); emailErr.classList.add('show');
+    emailEl.focus(); valid = false;
+  }
+  if(!pass){
+    passEl.classList.add('err'); passErr.classList.add('show');
+    if(valid) passEl.focus(); valid = false;
+  }
+  if(!valid) return;
+
+  // Loading state
+  btn.disabled = true;
+  btnTxt.innerHTML = `<svg style="animation:spin 1s linear infinite;flex-shrink:0" width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/><path d="M7 1.5a5.5 5.5 0 0 1 5.5 5.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg> Signing in…`;
+
+  // Fire Loops contact create (non-blocking — we let them in regardless)
+  try {
+    await fetch('https://app.loops.so/api/v1/contacts/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer d15c5a818073a6a2668fd00f7de954f1'
+      },
+      body: JSON.stringify({
+        email: email,
+        source: 'Monthly Demo',
+        userGroup: 'Demo Viewer',
+        subscribed: true
+      })
+    });
+  } catch(e){ /* silent — always let them in */ }
+
+  // Brief pause for realism then dismiss login
+  setTimeout(()=>{
+    const screen = document.getElementById('login-screen');
+    screen.style.animation = 'login-out .3s ease forwards';
+    setTimeout(()=>{ screen.style.display = 'none'; }, 300);
+  }, 900);
+}
+
+// Allow Enter key to submit
+document.addEventListener('DOMContentLoaded', ()=>{
+  ['login-email','login-password'].forEach(id=>{
+    document.getElementById(id).addEventListener('keydown', e=>{ if(e.key==='Enter') handleLogin(); });
+  });
+});
 
 // INIT
 renderOV();renderC();renderPO();renderUW();
