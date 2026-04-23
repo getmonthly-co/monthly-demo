@@ -264,6 +264,80 @@ tfoot tr td{border-top:2px solid var(--border)}
 .field.err .ipw{border-color:var(--red);box-shadow:0 0 0 3px rgba(192,57,43,.1)}
 .card.err{border-color:#fca5a5}
 
+/* ── MOBILE ── */
+@media(max-width:768px){
+  /* Sidebar — hidden on mobile, toggled via hamburger */
+  .sidebar{transform:translateX(-100%);transition:transform .25s ease,width .22s cubic-bezier(.4,0,.2,1);width:var(--sidebar-w)!important;box-shadow:4px 0 20px rgba(0,0,0,.12)}
+  .sidebar.mob-open{transform:translateX(0)}
+  .sidebar.col{transform:translateX(-100%)}
+  .main{margin-left:0!important}
+
+  /* Topbar */
+  .topbar{padding:0 16px}
+  .tb-crumb,.tb-sep{display:none}
+  .topbar-actions .btn-s{display:none}
+
+  /* Hamburger button — shown on mobile only */
+  .mob-menu-btn{display:flex!important}
+
+  /* Content */
+  .content{padding:16px}
+  .pg-title{font-size:18px}
+  .pg-sub{font-size:13px;margin-bottom:18px}
+
+  /* Cards */
+  .card{padding:16px}
+
+  /* Stat grid — 2 cols on mobile */
+  .stat-grid{grid-template-columns:1fr 1fr}
+  .stat-value{font-size:18px}
+  .stat-label{font-size:10px;min-height:28px}
+
+  /* Form grid — single col */
+  .g2{grid-template-columns:1fr}
+
+  /* Tables — horizontal scroll with slightly smaller text */
+  .tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  tbody td{padding:9px 10px;font-size:13px}
+  thead th{padding:8px 10px;font-size:10px}
+
+  /* Alert buttons — stack on mobile */
+  .alert-acts{flex-direction:column}
+  .alert-acts .btn-r,.alert-acts .btn-ro{width:100%;justify-content:center}
+
+  /* BTN ROW — stack on mobile */
+  .br{flex-direction:column-reverse;gap:8px}
+  .br .btn-p,.br .btn-s{width:100%;justify-content:center}
+
+  /* Detail panel — full width on mobile */
+  .dp{width:100vw}
+
+  /* Screen 3 */
+  .sc{padding-top:16px;padding-left:0;padding-right:0}
+
+  /* Screen 2 hero */
+  .ha{font-size:28px}
+  .rh{padding:24px 16px 18px}
+  .buyer-row{flex-direction:column;align-items:flex-start;gap:10px}
+
+  /* Funding modal */
+  #funding-modal-overlay > div{margin:0 12px}
+
+  /* Reports grid — single col */
+  .rg{grid-template-columns:1fr}
+
+  /* Tab bar — scrollable */
+  .tab-bar{overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap}
+  .tab{white-space:nowrap;flex-shrink:0}
+
+  /* Mob overlay when sidebar open */
+  .mob-overlay{display:block!important}
+}
+
+/* Hamburger — hidden on desktop */
+.mob-menu-btn{display:none;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid var(--border);border-radius:var(--radius);background:#fff;cursor:pointer;color:var(--text-muted);flex-shrink:0}
+.mob-overlay{display:none;position:fixed;inset:0;background:rgba(10,37,64,.3);z-index:99}
+
 /* LOGIN SCREEN */
 #login-screen{position:fixed;inset:0;background:var(--bg);z-index:999;display:flex;align-items:center;justify-content:center;padding:24px}
 .login-card{background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.08),0 1px 4px rgba(0,0,0,.04);width:100%;max-width:380px;padding:36px 36px 32px}
@@ -387,17 +461,19 @@ tfoot tr td{border-top:2px solid var(--border)}
 <main class="main" id="main-area">
 
   <!-- TOPBARS -->
-  <div class="topbar tbv on" id="tb-overview"><div class="tb-left"><span class="tb-title">Overview</span></div><div class="tb-actions"><button class="btn-s" style="font-size:13px;padding:6px 12px">Export</button><button class="btn-p" onclick="go('upload')">+ New contract</button></div></div>
-  <div class="topbar tbv" id="tb-contracts"><div class="tb-left"><span class="tb-title">Contracts</span><span class="tb-sep">/</span><span class="tb-crumb">All (20)</span></div><div class="tb-actions"><button class="btn-p" onclick="go('upload')">+ New contract</button></div></div>
-  <div class="topbar tbv" id="tb-payouts"><div class="tb-left"><span class="tb-title">Payouts</span></div><div class="tb-actions"><button class="btn-s" style="font-size:13px;padding:6px 12px">Export CSV</button></div></div>
+  <div class="topbar tbv on" id="tb-overview"><div class="tb-left"><button class="mob-menu-btn" onclick="toggleMobNav()"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M2 4h11M2 7.5h11M2 11h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button><span class="tb-title">Overview</span></div><div class="tb-actions"><button class="btn-s" style="font-size:13px;padding:6px 12px">Export</button><button class="btn-p" onclick="go('upload')">+ New contract</button></div></div>
+  <div class="topbar tbv" id="tb-contracts"><div class="tb-left"><button class="mob-menu-btn" onclick="toggleMobNav()"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M2 4h11M2 7.5h11M2 11h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button><span class="tb-title">Contracts</span><span class="tb-sep">/</span><span class="tb-crumb">All (20)</span></div><div class="tb-actions"><button class="btn-p" onclick="go('upload')">+ New contract</button></div></div>
+  <div class="topbar tbv" id="tb-payouts"><div class="tb-left"><button class="mob-menu-btn" onclick="toggleMobNav()"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M2 4h11M2 7.5h11M2 11h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button><span class="tb-title">Payouts</span></div><div class="tb-actions"><button class="btn-s" style="font-size:13px;padding:6px 12px">Export CSV</button></div></div>
+  <div class="topbar tbv" id="tb-reports"><div class="tb-left"><button class="mob-menu-btn" onclick="toggleMobNav()"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M2 4h11M2 7.5h11M2 11h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button><span class="tb-title">Reports</span></div><div class="tb-actions"><button class="btn-s" style="font-size:13px;padding:6px 12px">Download PDF</button></div></div>
+  <div class="topbar tbv" id="tb-underwriting"><div class="tb-left"><button class="mob-menu-btn" onclick="toggleMobNav()"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M2 4h11M2 7.5h11M2 11h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button><span class="tb-title">Underwriting</span><span class="tb-sep">/</span><span class="tb-crumb">1 action required</span></div><div class="tb-actions"><span class="pill pr">1 flagged</span></div></div>
+  <div class="topbar tbv" id="tb-team"><div class="tb-left"><button class="mob-menu-btn" onclick="toggleMobNav()"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M2 4h11M2 7.5h11M2 11h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button><span class="tb-title">Team</span></div><div class="tb-actions"><button class="btn-p">Invite member</button></div></div>
+  <div class="topbar tbv" id="tb-settings"><div class="tb-left"><button class="mob-menu-btn" onclick="toggleMobNav()"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M2 4h11M2 7.5h11M2 11h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button><span class="tb-title">Settings</span></div><div class="tb-actions"><button class="btn-p">Save changes</button></div></div>
+  <div class="topbar tbv" id="tb-upload"><div class="tb-left"><button class="mob-menu-btn" onclick="toggleMobNav()"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M2 4h11M2 7.5h11M2 11h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button><span class="tb-title">New Contract</span><span class="tb-sep">/</span><span class="tb-crumb">Upload</span></div><div class="tb-actions"><button class="btn-s" style="font-size:13px;padding:6px 12px">Save draft</button></div></div>
+  <div class="topbar tbv" id="tb-screen2"><div class="tb-left"><button class="mob-menu-btn" onclick="toggleMobNav()"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M2 4h11M2 7.5h11M2 11h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button><span class="tb-title">Underwriting Result</span><span class="tb-sep">/</span><span class="tb-crumb">Acme Corp</span></div><div class="tb-actions"><span class="pill pill-g">● Approved</span></div></div>
+  <div class="topbar tbv" id="tb-screen3"><div class="tb-left"><button class="mob-menu-btn" onclick="toggleMobNav()"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M2 4h11M2 7.5h11M2 11h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button><span class="tb-title">Contract Funded</span></div><div class="tb-actions"><button class="btn-p" onclick="go('upload')">+ New contract</button></div></div>
 
-  <div class="topbar tbv" id="tb-reports"><div class="tb-left"><span class="tb-title">Reports</span></div><div class="tb-actions"><button class="btn-s" style="font-size:13px;padding:6px 12px">Download PDF</button></div></div>
-  <div class="topbar tbv" id="tb-underwriting"><div class="tb-left"><span class="tb-title">Underwriting</span><span class="tb-sep">/</span><span class="tb-crumb">1 action required</span></div><div class="tb-actions"><span class="pill pr">1 flagged</span></div></div>
-  <div class="topbar tbv" id="tb-team"><div class="tb-left"><span class="tb-title">Team</span></div><div class="tb-actions"><button class="btn-p">Invite member</button></div></div>
-  <div class="topbar tbv" id="tb-settings"><div class="tb-left"><span class="tb-title">Settings</span></div><div class="tb-actions"><button class="btn-p">Save changes</button></div></div>
-  <div class="topbar tbv" id="tb-upload"><div class="tb-left"><span class="tb-title">New Contract</span><span class="tb-sep">/</span><span class="tb-crumb">Upload</span></div><div class="tb-actions"><button class="btn-s" style="font-size:13px;padding:6px 12px">Save draft</button></div></div>
-  <div class="topbar tbv" id="tb-screen2"><div class="tb-left"><span class="tb-title">Underwriting Result</span><span class="tb-sep">/</span><span class="tb-crumb">Acme Corp</span></div><div class="tb-actions"><span class="pill pill-g">● Approved</span></div></div>
-  <div class="topbar tbv" id="tb-screen3"><div class="tb-left"><span class="tb-title">Contract Funded</span></div><div class="tb-actions"><button class="btn-p" onclick="go('upload')">+ New contract</button></div></div>
+  <!-- Mobile nav overlay -->
+  <div class="mob-overlay" id="mob-overlay" onclick="toggleMobNav()"></div>
 
   <div class="content">
 
@@ -1226,6 +1302,7 @@ async function handleLogin(){
 
   const email = emailEl.value.trim();
   const pass  = passEl.value;
+  const passValid = pass.length > 0; // any input including autofilled dots counts
   let valid = true;
 
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -1233,7 +1310,7 @@ async function handleLogin(){
     emailEl.classList.add('err'); emailErr.classList.add('show');
     emailEl.focus(); valid = false;
   }
-  if(!pass){
+  if(!passValid){
     passEl.classList.add('err'); passErr.classList.add('show');
     if(valid) passEl.focus(); valid = false;
   }
@@ -1260,8 +1337,52 @@ async function handleLogin(){
   }, 900);
 }
 
-// Allow Enter key to submit
+// MOBILE NAV
+function toggleMobNav(){
+  const sb = document.getElementById('sb');
+  const ov = document.getElementById('mob-overlay');
+  const isOpen = sb.classList.contains('mob-open');
+  sb.classList.toggle('mob-open', !isOpen);
+  ov.style.display = isOpen ? 'none' : 'block';
+}
+
+// Close mobile nav when a nav item is tapped
+document.querySelectorAll('.ni').forEach(el=>{
+  el.addEventListener('click', ()=>{
+    if(window.innerWidth <= 768){
+      document.getElementById('sb').classList.remove('mob-open');
+      document.getElementById('mob-overlay').style.display='none';
+    }
+  });
+});
+
+// LOGIN — auto-fill password when email is filled and user leaves the field
 document.addEventListener('DOMContentLoaded', ()=>{
+  const emailEl = document.getElementById('login-email');
+  const passEl  = document.getElementById('login-password');
+
+  emailEl.addEventListener('blur', ()=>{
+    const email = emailEl.value.trim();
+    const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if(valid && !passEl.value){
+      // Small delay so it feels like a lookup
+      setTimeout(()=>{
+        passEl.value = '••••••••';
+        passEl.style.color = 'var(--text-light)';
+        passEl.setAttribute('data-autofilled','true');
+      }, 300);
+    }
+  });
+
+  // Clear the visual autofill if user focuses password and it's the dummy value
+  passEl.addEventListener('focus', ()=>{
+    if(passEl.getAttribute('data-autofilled')==='true'){
+      passEl.value = '';
+      passEl.style.color = '';
+      passEl.removeAttribute('data-autofilled');
+    }
+  });
+
   ['login-email','login-password'].forEach(id=>{
     document.getElementById(id).addEventListener('keydown', e=>{ if(e.key==='Enter') handleLogin(); });
   });
