@@ -331,7 +331,6 @@ tfoot tr td{border-top:2px solid var(--border)}
   .tab{white-space:nowrap;flex-shrink:0}
 
   /* Mob overlay when sidebar open */
-  .mob-overlay{display:block!important}
 }
 
 /* Hamburger — hidden on desktop */
@@ -473,7 +472,7 @@ tfoot tr td{border-top:2px solid var(--border)}
   <div class="topbar tbv" id="tb-screen3"><div class="tb-left"><button class="mob-menu-btn" onclick="toggleMobNav()"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M2 4h11M2 7.5h11M2 11h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button><span class="tb-title">Contract Funded</span></div><div class="tb-actions"><button class="btn-p" onclick="go('upload')">+ New contract</button></div></div>
 
   <!-- Mobile nav overlay -->
-  <div class="mob-overlay" id="mob-overlay" onclick="toggleMobNav()"></div>
+  <div class="mob-overlay" id="mob-overlay" onclick="toggleMobNav()" style="display:none"></div>
 
   <div class="content">
 
@@ -1343,7 +1342,7 @@ function toggleMobNav(){
   const ov = document.getElementById('mob-overlay');
   const isOpen = sb.classList.contains('mob-open');
   sb.classList.toggle('mob-open', !isOpen);
-  ov.style.display = isOpen ? 'none' : 'block';
+  ov.classList.toggle('mob-overlay-open', !isOpen);
 }
 
 // Close mobile nav when a nav item is tapped
@@ -1351,7 +1350,7 @@ document.querySelectorAll('.ni').forEach(el=>{
   el.addEventListener('click', ()=>{
     if(window.innerWidth <= 768){
       document.getElementById('sb').classList.remove('mob-open');
-      document.getElementById('mob-overlay').style.display='none';
+      document.getElementById('mob-overlay').classList.remove('mob-overlay-open');
     }
   });
 });
