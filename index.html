@@ -27,7 +27,7 @@ html,body{height:100%;font-family:'Inter',-apple-system,sans-serif;background:va
 .sidebar.col{width:56px}
 .sb-header{display:flex;align-items:center;justify-content:space-between;padding:14px;border-bottom:1px solid var(--border-light);min-height:56px;flex-shrink:0}
 .brand-row{display:flex;align-items:center;gap:9px;overflow:hidden;min-width:0}
-.brand-icon{width:28px;height:28px;background:var(--blue);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.brand-icon{width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .brand-name{font-size:15px;font-weight:600;color:var(--text);letter-spacing:-.2px;white-space:nowrap;overflow:hidden;transition:opacity .15s,max-width .22s}
 .sidebar.col .brand-name{opacity:0;max-width:0}
 .col-btn{width:24px;height:24px;border-radius:4px;border:1px solid var(--border);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--text-light);transition:background .1s}
@@ -366,9 +366,7 @@ tfoot tr td{border-top:2px solid var(--border)}
 <div id="login-screen">
   <div class="login-card">
     <div class="login-logo">
-      <div class="login-logo-icon">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 11l6-8 6 8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
+      <div class="login-logo-icon" style="background:none;padding:0;width:auto;height:auto"><svg width="22" height="22" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="lg" x1="0" y1="0" x2="88" y2="88" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#2F5ED7"/><stop offset="100%" stop-color="#1E2A78"/></linearGradient></defs><rect width="88" height="88" rx="18" fill="url(#lg)"/><rect x="14" y="34" width="38" height="30" rx="6" fill="white" fill-opacity="0.22"/><rect x="36" y="22" width="38" height="30" rx="6" fill="white" fill-opacity="0.80"/><rect x="14" y="34" width="38" height="30" rx="6" fill="none" stroke="white" stroke-opacity="0.30" stroke-width="1.2"/></svg></div>
       <span class="login-logo-name">Monthly</span>
     </div>
     <p class="login-title">Welcome back</p>
@@ -407,7 +405,7 @@ tfoot tr td{border-top:2px solid var(--border)}
 <aside class="sidebar" id="sb">
   <div class="sb-header">
     <div class="brand-row">
-      <div class="brand-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 10l5-7 5 7" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="brand-icon" style="background:none;padding:0"><svg width="20" height="20" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="mg" x1="0" y1="0" x2="88" y2="88" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#2F5ED7"/><stop offset="100%" stop-color="#1E2A78"/></linearGradient></defs><rect width="88" height="88" rx="18" fill="url(#mg)"/><rect x="14" y="34" width="38" height="30" rx="6" fill="white" fill-opacity="0.22"/><rect x="36" y="22" width="38" height="30" rx="6" fill="white" fill-opacity="0.80"/><rect x="14" y="34" width="38" height="30" rx="6" fill="none" stroke="white" stroke-opacity="0.30" stroke-width="1.2"/></svg></div>
       <span class="brand-name">Monthly</span>
     </div>
     <button class="col-btn" id="col-btn" onclick="toggleSB()" title="Collapse">
